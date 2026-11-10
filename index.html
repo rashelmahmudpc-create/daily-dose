@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#4f46e5">
+<title>রোজকার ডোজ</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="রোজকার ডোজ">
+<style>
+:root{
+  --bg:#0b1020; --bg2:#0f1730; --card:#151d38; --card2:#1b2647; --border:#26324f;
+  --text:#eef2ff; --muted:#9aa6c9; --accent:#7c8cff; --accent2:#22d3ee;
+  --radius:18px; --font:'Hind Siliguri',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{background:radial-gradient(1200px 600px at 20% -10%,#1b2450 0%,transparent 60%),radial-gradient(900px 500px at 110% 10%,#123a45 0%,transparent 55%),linear-gradient(180deg,var(--bg),var(--bg2));background-attachment:fixed;color:var(--text);font-family:var(--font);line-height:1.65;min-height:100dvh}
+.wrap{max-width:760px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 18px) 16px calc(env(safe-area-inset-bottom) + 40px)}
+header{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:6px}
+h1{font-size:24px;margin:0;font-weight:700;letter-spacing:.2px}
+h1 .spark{background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.date{color:var(--muted);font-size:13px;text-align:right;min-width:120px}
+.refresh{margin-top:14px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+button{font-family:inherit;font-size:13px;color:var(--text);background:var(--card);border:1px solid var(--border);border-radius:999px;padding:8px 14px;cursor:pointer;transition:.18s}
+button:active{transform:scale(.97)}
+button.primary{background:linear-gradient(90deg,var(--accent),var(--accent2));border:none;color:#08101f;font-weight:600}
+.grid{display:grid;grid-template-columns:1fr;gap:12px;margin-top:16px}
+@media(min-width:620px){.grid{grid-template-columns:1fr 1fr}}
+.card{background:linear-gradient(180deg,var(--card),var(--card2));border:1px solid var(--border);border-radius:var(--radius);padding:16px;cursor:pointer;transition:border-color .2s,box-shadow .2s;position:relative;overflow:hidden}
+.card:hover{border-color:#3a4a78}
+.card.open{border-color:var(--accent);box-shadow:0 8px 30px -12px rgba(124,140,255,.5)}
+.row{display:flex;gap:13px;align-items:flex-start}
+.ic{font-size:22px;line-height:1.15;flex:0 0 auto}
+.tt{font-weight:700;font-size:15.5px;margin:0 0 3px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.te{color:var(--muted);font-size:13.6px;margin:0}
+.badge{font-size:10.5px;color:#08101f;background:var(--accent2);border-radius:999px;padding:1px 8px;font-weight:700}
+.body{max-height:0;overflow:hidden;transition:max-height .28s ease;font-size:14.2px}
+.card.open .body{max-height:1600px;margin-top:12px;padding-top:12px;border-top:1px dashed var(--border)}
+.body p{margin:0 0 8px}
+.body ul{margin:6px 0;padding-left:20px}
+.body li{margin:4px 0}
+.body a{color:var(--accent2);text-decoration:none}
+.muted{color:var(--muted);font-size:12.5px}
+footer{margin-top:26px;color:var(--muted);font-size:12px;text-align:center;line-height:1.7}
+.skel{height:74px;border-radius:var(--radius);background:linear-gradient(90deg,var(--card),#1e2a4d,var(--card));background-size:200% 100%;animation:sk 1.2s infinite}
+@keyframes sk{0%{background-position:200% 0}100%{background-position:-200% 0}}
+.install{position:fixed;left:16px;right:16px;bottom:calc(env(safe-area-inset-bottom) + 16px);max-width:728px;margin:0 auto;background:linear-gradient(90deg,var(--accent),var(--accent2));color:#08101f;border-radius:16px;padding:12px 14px;display:none;justify-content:space-between;align-items:center;gap:12px;font-weight:600;box-shadow:0 12px 40px -12px rgba(0,0,0,.6);z-index:20}
+.install button{background:rgba(8,16,31,.18);border:none;color:#08101f;font-weight:700}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>🎁 <span class="spark">রোজকার ডোজ</span></h1>
+    <div class="date" id="date"></div>
+  </header>
+  <div class="refresh">
+    <button class="primary" id="reload">🔄 আজকের ডোজ</button>
+    <button id="about">ℹ️ কীভাবে</button>
+    <span class="muted" id="updated"></span>
+  </div>
+  <div class="grid" id="grid">
+    <div class="skel"></div><div class="skel"></div>
+  </div>
+  <footer>
+    রোজ সকাল ৮টায় (ঢাকা) নিজে থেকে নতুন ডোজ আসে।<br>
+    খবর ও টুল আসে WebBrain দিয়ে; কার্ডে ট্যাপ করলে বিস্তারিত।
+  </footer>
+</div>
+<div class="install" id="install">
+  <span>🏠 হোম স্ক্রিনে অ্যাপ হিসেবে রাখুন</span>
+  <span><button id="installBtn">ইনস্টল</button> <button id="installNo">পরে</button></span>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
